@@ -1,0 +1,25 @@
+#wrapper {
+    display: flex;
+    margin: 0 auto;
+}
+
+
+#div0 {
+    background-color: blue;
+    width: auto;
+    height: 100px;
+}
+
+#div1 {
+    background-color: red;
+    width: auto;
+    height: 100px;
+}
+
+
+span {
+    position:fixed;
+    background-color: lightblue;
+    width: auto;
+    height: 100px;
+}
