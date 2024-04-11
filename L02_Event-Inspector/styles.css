@@ -1,25 +1,32 @@
+
 #wrapper {
-    display: flex;
-    margin: 0 auto;
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 20px;
 }
 
 
 #div0 {
-    background-color: blue;
+    background-color: #b9c0da;
     width: auto;
-    height: 100px;
+    height: 500px;
 }
 
 #div1 {
-    background-color: red;
+    background-color: #998da0;
     width: auto;
-    height: 100px;
+    height: 500px;
 }
 
 
 span {
     position:fixed;
-    background-color: lightblue;
-    width: auto;
-    height: 100px;
+    background-color: #63585e;
+    width: 150px;
+  height: 100px;
+    color: white;
+    display: flex;
+  justify-content: center;
+  align-items: center;
 }
