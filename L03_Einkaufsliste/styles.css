@@ -1,0 +1,69 @@
+body {
+    background-color: #2D3250;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    color: #e7e56c;
+}
+
+#neuerEintrag {
+    display: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #424769;
+    color: white;
+}
+
+th, td {
+    border: none;
+    padding: 8px;
+    text-align: left;
+}
+
+
+th {
+    background-color: #7077A1;
+    color: white;
+}
+
+#neuerEintrag {
+    margin: 10px;
+    margin-left: 0px;
+    line-height: 30px;
+    color: white;
+    background-color: #424769;
+    padding: 10px;
+    width: 20%;
+}
+
+.close {
+    cursor: pointer;
+    position: absolute;
+    padding: auto;
+    border: none;
+    transform: translate(0%, -50%);
+  }
+  
+.close:hover {
+    background: #bbb;
+}
+  
+#addEntryMaskButton {
+    margin-bottom: 10px;
+    background-color: #424769;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#addEntryMaskButton:hover {
+    background-color: #7077A1;
+}
