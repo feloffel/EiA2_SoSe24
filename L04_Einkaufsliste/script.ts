@@ -8,14 +8,14 @@ Quellen: <Kommilitonis mit denen Du zusammengearbeitet hast oder von denen Du di
 
 // Funktion zum Einblenden der Neuer Eintrag Maske nachdem der Button hierfür geklickt wurde
 function showEntryMask() {
-    const mask = document.getElementById('neuerEintrag')!;
+    let mask = document.getElementById('neuerEintrag')!;
     mask.style.display = "block";
 }
 
 // Funktion zum Ausblenden der Maske für einen Neuer Eintrag nachdem der hinzufügen button gedrückt wurde
 // und Hinzufügen des Eintrags zur Liste
 function hideEntryMask() {
-    const mask = document.getElementById('neuerEintrag')!;
+    let mask = document.getElementById('neuerEintrag')!;
     mask.style.display = "none";
 }
 
@@ -34,10 +34,10 @@ function loadEntries() {
     fetch('eintraege.json')
         .then(response => response.json())
         .then((data: Entry[]) => { // Hier gibst du das Interface an, um den Typ zu definieren
-            const tableBody = document.querySelector('#liste table tbody');
+            let tableBody = document.querySelector('#liste table tbody');
             if (tableBody) {
                 data.forEach(entry => {
-                    const newRow = document.createElement('tr');
+                    let newRow = document.createElement('tr');
                     newRow.innerHTML = `
                         <td><input type="checkbox" class="checkbox" ${entry.gekauft ? 'checked' : ''}></td>
                         <td>${entry.name}</td>
@@ -56,19 +56,19 @@ function loadEntries() {
 
 // Funktion zum Hinzufügen eines Eintrags zur Liste
 function addEntry() {
-    const nameInput = document.getElementById('neueWareName') as HTMLInputElement;
-    const mengeInput = document.getElementById('Menge') as HTMLInputElement;
-    const dateInput = document.getElementById('date') as HTMLInputElement;
-    const kommentarInput = document.getElementById('Kommentar') as HTMLInputElement;
+    let nameInput = document.getElementById('neueWareName') as HTMLInputElement;
+    let mengeInput = document.getElementById('Menge') as HTMLInputElement;
+    let dateInput = document.getElementById('date') as HTMLInputElement;
+    let kommentarInput = document.getElementById('Kommentar') as HTMLInputElement;
 
-    const name = nameInput.value;
-    const menge = mengeInput.value;
-    const date = dateInput.value;
-    const kommentar = kommentarInput.value;
+    let name = nameInput.value;
+    let menge = mengeInput.value;
+    let date = dateInput.value;
+    let kommentar = kommentarInput.value;
 
-    const tableBody = document.querySelector('#liste table tbody');
+    let tableBody = document.querySelector('#liste table tbody');
     if (tableBody) {
-        const newRow = document.createElement('tr');
+        let newRow = document.createElement('tr');
         newRow.innerHTML = `
             <td><input type="checkbox" class="checkbox"></td>
             <td>${name}</td>
@@ -86,7 +86,7 @@ function addEntry() {
 
 // Funktion zum Entfernen eines Eintrags aus der Liste
 function removeItem(button: HTMLElement) {
-    const row = button.closest('tr'); // Finden der Zeile, zu der der Button gehört
+    let row = button.closest('tr'); // Finden der Zeile, zu der der Button gehört
     if (row) {
         row.remove(); // Entferne die Zeile aus der Tabelle
         console.log('Eintrag entfernt');
@@ -95,22 +95,22 @@ function removeItem(button: HTMLElement) {
 
 // Funktion zum Markieren eines Eintrags als gekauft
 function boughtItem(button: HTMLElement) {
-    const row = button.closest('tr'); // Finde die Zeile, zu der der Button gehört
+    let row = button.closest('tr'); // Finde die Zeile, zu der der Button gehört
     if (row) {
-        const tableBody = row.parentElement; // Finde den tbody-Container der Tabelle
+        let tableBody = row.parentElement; // Finde den tbody-Container der Tabelle
         if (tableBody) {
             // Verschiebe die Zeile ans Ende der Tabelle
             tableBody.appendChild(row);
         }
 
-        const dateCell = row.querySelector('td:nth-child(4)'); // Finde die Zelle mit dem Datum
+        let dateCell = row.querySelector('td:nth-child(4)'); // Finde die Zelle mit dem Datum
         if (dateCell) {
-            const today = new Date();
-            const formattedDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`; // Aktuelles Datum formatieren
+            let today = new Date();
+            let formattedDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`; // Aktuelles Datum formatieren
             dateCell.textContent = formattedDate; // Aktualisiere das Datum in der Zelle
         }
 
-        const checkbox = row.querySelector('.checkbox') as HTMLInputElement; // Finde die Checkbox
+        let checkbox = row.querySelector('.checkbox') as HTMLInputElement; // Finde die Checkbox
         if (checkbox) {
             checkbox.checked = false; // Setze den Haken bei der Checkbox auf false
         }
