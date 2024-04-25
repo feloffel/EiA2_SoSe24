@@ -1,126 +1,48 @@
-/*
-Aufgabe: L04_Einkaufsliste_Datenstruktur
-Name: Marius Dauner
-Matrikel: 275813
-Datum: 25.04.24
-Quellen: <Kommilitonis mit denen Du zusammengearbeitet hast oder von denen Du dich inspirieren ließest>
-*/
-
-// Funktion zum Einblenden der Neuer Eintrag Maske nachdem der Button hierfür geklickt wurde
+//Funktion zum einblenden der Neuen Eintrag Maske nachdem der Button hierfür geklickt wurde
 function showEntryMask() {
-    const mask = document.getElementById('neuerEintrag')!;
-    mask.style.display = "block";
-}
+    document.getElementById('neuerEintrag')!.style.display = "block";
+    document.getElementById('addEntryMaskButton')!.style.display = "none";
+    console.log('Neuer Eintrag Maske eingeblendet');
+ }
 
-// Funktion zum Ausblenden der Maske für einen Neuer Eintrag nachdem der hinzufügen button gedrückt wurde
-// und Hinzufügen des Eintrags zur Liste
+//Ausblenden der Maske für einen Neuen Eintrag nachdem der hinzufügen button gedrückt wurde + hinzufügen des Eintrags zur Liste
 function hideEntryMask() {
-    const mask = document.getElementById('neuerEintrag')!;
-    mask.style.display = "none";
+    document.getElementById('neuerEintrag')!.style.display = "none"
+    document.getElementById('addEntryMaskButton')!.style.display = "block";
+    console.log('Neuer Eintrag Maske ausgeblendet');
 }
 
-//Definitionen
-interface Entry {
-    name: string;
-    menge: number;
-    letzterKauf: Date; 
-    kommentar: string;
-    gekauft: boolean; 
-}
+//Item aus der Liste entfernen
+ function removeItem() {
+    document.getElementsByClassName('close');
+    console.log('Item entfernt');
+ }
 
+ function boughtItem() {
+    document.getElementsByClassName('ItemBoughtButton');
+    console.log('Item wurde als gekauft markiert');
+    //entfernen des Häckchens bei "Kaufen"
+    //Update des "Zu letzt gekauft am (Datum)"
+    //Item rutscht nach ganz unten auf der Liste
+ }
 
-// Funktion zum Einlesen der Einträge aus der JSON-Datei und Hinzufügen zur Tabelle
-function loadEntries() {
-    fetch('eintraege.json')
-        .then(response => response.json())
-        .then((data: Entry[]) => { // Hier gibst du das Interface an, um den Typ zu definieren
-            const tableBody = document.querySelector('#liste table tbody');
-            if (tableBody) {
-                data.forEach(entry => {
-                    const newRow = document.createElement('tr');
-                    newRow.innerHTML = `
-                        <td><input type="checkbox" class="checkbox" ${entry.gekauft ? 'checked' : ''}></td>
-                        <td>${entry.name}</td>
-                        <td><input type="number" value="${entry.menge}" placeholder="Anzahl"></td>
-                        <td>${entry.letzterKauf}</td>
-                        <td><input value="${entry.kommentar}" placeholder="weitere Infos"></td>
-                        <td><button class="ItemBoughtButton" onclick="boughtItem(this)">Gekauft</button></td>
-                        <td><button class="close" onclick="removeItem(this)">–</button></td>
-                    `;
-                    tableBody.appendChild(newRow);
-                });
-            }
-        });
-}
+ 
+ document.addEventListener('DOMContentLoaded', () => {
+    const checkboxes = document.querySelectorAll('.checkbox');
 
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', markedAsToBuy);
+    });
+});
 
-// Funktion zum Hinzufügen eines Eintrags zur Liste
-function addEntry() {
-    const nameInput = document.getElementById('neueWareName') as HTMLInputElement;
-    const mengeInput = document.getElementById('Menge') as HTMLInputElement;
-    const dateInput = document.getElementById('date') as HTMLInputElement;
-    const kommentarInput = document.getElementById('Kommentar') as HTMLInputElement;
+function markedAsToBuy(event: Event) {
+    const checkbox = event.target as HTMLInputElement;
 
-    const name = nameInput.value;
-    const menge = mengeInput.value;
-    const date = dateInput.value;
-    const kommentar = kommentarInput.value;
-
-    const tableBody = document.querySelector('#liste table tbody');
-    if (tableBody) {
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `
-            <td><input type="checkbox" class="checkbox"></td>
-            <td>${name}</td>
-            <td><input type="number" value="${menge}" placeholder="Anzahl"></td>
-            <td>${date}</td>
-            <td><input value="${kommentar}" placeholder="weitere Infos"></td>
-            <td><button class="ItemBoughtButton" onclick="boughtItem(this)">Gekauft</button></td>
-            <td><button class="close" onclick="removeItem(this)">–</button></td>
-        `;
-        tableBody.appendChild(newRow);
-    }
-
-    hideEntryMask();
-}
-
-// Funktion zum Entfernen eines Eintrags aus der Liste
-function removeItem(button: HTMLElement) {
-    const row = button.closest('tr'); // Finden der Zeile, zu der der Button gehört
-    if (row) {
-        row.remove(); // Entferne die Zeile aus der Tabelle
-        console.log('Eintrag entfernt');
+    if (checkbox.checked) {
+        console.log('Checkbox abgehakt');
+    } else {
+        console.log('Checkbox entfernt');
     }
 }
-
-// Funktion zum Markieren eines Eintrags als gekauft
-function boughtItem(button: HTMLElement) {
-    const row = button.closest('tr'); // Finde die Zeile, zu der der Button gehört
-    if (row) {
-        const tableBody = row.parentElement; // Finde den tbody-Container der Tabelle
-        if (tableBody) {
-            // Verschiebe die Zeile ans Ende der Tabelle
-            tableBody.appendChild(row);
-        }
-
-        const dateCell = row.querySelector('td:nth-child(4)'); // Finde die Zelle mit dem Datum
-        if (dateCell) {
-            const today = new Date();
-            const formattedDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`; // Aktuelles Datum formatieren
-            dateCell.textContent = formattedDate; // Aktualisiere das Datum in der Zelle
-        }
-
-        const checkbox = row.querySelector('.checkbox') as HTMLInputElement; // Finde die Checkbox
-        if (checkbox) {
-            checkbox.checked = false; // Setze den Haken bei der Checkbox auf false
-        }
-
-        console.log('Datum aktualisiert, Haken entfernt und Item ans Ende verschoben');
-    }
-}
-
-
-// Lade die Einträge aus der JSON-Datei, wenn die Seite geladen ist
-loadEntries();
 
 
