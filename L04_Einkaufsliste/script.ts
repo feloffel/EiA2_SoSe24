@@ -3,17 +3,16 @@ Aufgabe: L04_Einkaufsliste_Datenstruktur
 Name: Marius Dauner
 Matrikel: 275813
 Datum: 25.04.24
-Quellen: <Kommilitonis mit denen Du zusammengearbeitet hast oder von denen Du dich inspirieren ließest>
+Quellen: -
 */
 
-// Funktion zum Einblenden der Neuer Eintrag Maske nachdem der Button hierfür geklickt wurde
+// Funktion zum Einblenden der "Neuer Eintrag" Maske nachdem der Button hierfür geklickt wurde
 function showEntryMask() {
     let mask = document.getElementById('neuerEintrag')!;
     mask.style.display = "block";
 }
 
-// Funktion zum Ausblenden der Maske für einen Neuer Eintrag nachdem der hinzufügen button gedrückt wurde
-// und Hinzufügen des Eintrags zur Liste
+// Funktion zum Ausblenden der Maske für einen neuen Eintrag nachdem der hinzufügen button gedrückt wurde und Hinzufügen des Eintrags zur Liste
 function hideEntryMask() {
     let mask = document.getElementById('neuerEintrag')!;
     mask.style.display = "none";
@@ -33,7 +32,7 @@ interface Entry {
 function loadEntries() {
     fetch('eintraege.json')
         .then(response => response.json())
-        .then((data: Entry[]) => { // Hier gibst du das Interface an, um den Typ zu definieren
+        .then((data: Entry[]) => {
             let tableBody = document.querySelector('#liste table tbody');
             if (tableBody) {
                 data.forEach(entry => {
@@ -88,31 +87,31 @@ function addEntry() {
 function removeItem(button: HTMLElement) {
     let row = button.closest('tr'); // Finden der Zeile, zu der der Button gehört
     if (row) {
-        row.remove(); // Entferne die Zeile aus der Tabelle
+        row.remove(); // Entfernen der Zeile aus der Tabelle
         console.log('Eintrag entfernt');
     }
 }
 
 // Funktion zum Markieren eines Eintrags als gekauft
 function boughtItem(button: HTMLElement) {
-    let row = button.closest('tr'); // Finde die Zeile, zu der der Button gehört
+    let row = button.closest('tr'); // Finden der Zeile, zu der der Button gehört
     if (row) {
-        let tableBody = row.parentElement; // Finde den tbody-Container der Tabelle
+        let tableBody = row.parentElement; // Finden des tbody-Container der Tabelle
         if (tableBody) {
-            // Verschiebe die Zeile ans Ende der Tabelle
+            // Verschieben der Zeile ans Ende der Tabelle
             tableBody.appendChild(row);
         }
 
-        let dateCell = row.querySelector('td:nth-child(4)'); // Finde die Zelle mit dem Datum
+        let dateCell = row.querySelector('td:nth-child(4)'); // Finden der Zeile mit dem Datum
         if (dateCell) {
             let today = new Date();
             let formattedDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`; // Aktuelles Datum formatieren
-            dateCell.textContent = formattedDate; // Aktualisiere das Datum in der Zelle
+            dateCell.textContent = formattedDate; // Aktualisieren des Datum in der Zeile
         }
 
-        let checkbox = row.querySelector('.checkbox') as HTMLInputElement; // Finde die Checkbox
+        let checkbox = row.querySelector('.checkbox') as HTMLInputElement; // finden der checkbox
         if (checkbox) {
-            checkbox.checked = false; // Setze den Haken bei der Checkbox auf false
+            checkbox.checked = false; // Checkbox-Haken wird auf false gesetzt
         }
 
         console.log('Datum aktualisiert, Haken entfernt und Item ans Ende verschoben');
@@ -120,7 +119,7 @@ function boughtItem(button: HTMLElement) {
 }
 
 
-// Lade die Einträge aus der JSON-Datei, wenn die Seite geladen ist
+// Einträge aus JSON-Datei laden
 loadEntries();
 
 
