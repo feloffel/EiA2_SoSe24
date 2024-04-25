@@ -1,0 +1,38 @@
+[
+    {
+      "name": "Apfel",
+      "menge": 3,
+      "letzterKauf": "2024-04-18",
+      "kommentar": "Bio",
+      "gekauft": false
+    },
+    {
+      "name": "Milch",
+      "menge": 1,
+      "letzterKauf": "2024-04-10",
+      "kommentar": "",
+      "gekauft": true
+    },
+    {
+      "name": "Klopapier",
+      "menge": 6,
+      "letzterKauf": "2024-04-11",
+      "kommentar": "",
+      "gekauft": false
+    },
+    {
+      "name": "Tomate",
+      "menge": 5,
+      "letzterKauf": "2024-04-03",
+      "kommentar": "",
+      "gekauft": true
+    },
+    {
+      "name": "Zwiebeln",
+      "menge": 2,
+      "letzterKauf": "2024-03-10",
+      "kommentar": "",
+      "gekauft": false
+    }
+  ]
+  
