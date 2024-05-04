@@ -9,11 +9,9 @@ Quellen: -
 
     console.log("Skript wurde geladen!");
 
-
-
     window.onload = () => {
-        const canvas: HTMLCanvasElement = document.querySelector("#myCanvas");
-        const crc2: CanvasRenderingContext2D = canvas.getContext("2d");
+        const canvas: HTMLCanvasElement = document.querySelector("#myCanvas")!;
+        const crc2: CanvasRenderingContext2D = canvas.getContext("2d")!;
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
