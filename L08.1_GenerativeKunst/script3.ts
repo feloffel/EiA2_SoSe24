@@ -21,7 +21,7 @@ Quellen: -
         crc2.clearRect(0, 0, canvas.width, canvas.height);
     
         function getRandomColor(): string {
-            const hue: number = Math.random()*1000 + Math.random() * 50; // Hue in einem Bereich von 200 bis 250 (Blauabstufungen)
+            const hue: number = Math.random()*1100 + Math.random() * 50; // Hue in einem Bereich von 200 bis 250 (Blauabstufungen)
             const saturation: number = Math.floor(Math.random() * 21) + 40; // Sättigung in einem Bereich von 40 bis 60
             const lightness: number = Math.floor(Math.random() * 21) + 40; // Helligkeit in einem Bereich von 40 bis 60
         
