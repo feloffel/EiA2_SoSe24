@@ -7,7 +7,7 @@ Quellen: -
 */
 
 
-console.log("Skript wurde geladen!");
+console.log("Skript wurde geladen!!!");
 
 window.onload = () => {
     const canvas: HTMLCanvasElement = document.querySelector("#myCanvas")!;
