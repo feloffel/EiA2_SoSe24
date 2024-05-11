@@ -16,7 +16,7 @@ window.onload = () => {
     // Clear canvas
     crc2.clearRect(0, 0, canvas.width, canvas.height);
     function getRandomColor() {
-        const hue = Math.random() * 1000 + Math.random() * 50; // Hue in einem Bereich von 200 bis 250 (Blauabstufungen)
+        const hue = Math.random() * 1100 + Math.random() * 50; // Hue in einem Bereich von 200 bis 250 (Blauabstufungen)
         const saturation = Math.floor(Math.random() * 21) + 40; // Sättigung in einem Bereich von 40 bis 60
         const lightness = Math.floor(Math.random() * 21) + 40; // Helligkeit in einem Bereich von 40 bis 60
         return `hsl(${hue}, ${saturation}%, ${lightness}%)`; // HSL-Farbe konstruieren

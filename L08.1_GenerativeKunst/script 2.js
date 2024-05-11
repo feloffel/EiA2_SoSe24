@@ -55,4 +55,4 @@ window.onload = () => {
         crc2.fill();
     }
 };
-//# sourceMappingURL=script.js.map
+//# sourceMappingURL=script%202.js.map
