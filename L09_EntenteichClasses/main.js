@@ -6,8 +6,8 @@ Matrikel: 275813
 Datum: 11.05.24
 Quellen: mithilfe von ChatGPT erarbeitet da ich sonst verzweifelt wäre
 */
-var L09_Ententeich;
-(function (L09_Ententeich) {
+var L09_EntenteichClasses;
+(function (L09_EntenteichClasses) {
     window.addEventListener("load", handleLoad);
     let crc2;
     let line = 0.46;
@@ -35,6 +35,7 @@ var L09_Ententeich;
             crc2.beginPath();
             crc2.moveTo(0, horizon);
             crc2.lineTo(crc2.canvas.width * 0.2, horizon - leftMountainHeight);
+            crc2.quadraticCurveTo(crc2.canvas.width * 0.25, horizon - leftMountainHeight - 50, crc2.canvas.width * 0.3, horizon - leftMountainHeight);
             crc2.lineTo(crc2.canvas.width * 0.4, horizon);
             crc2.closePath();
             crc2.fillStyle = "#91c06c"; // Grünton für den linken Berg
@@ -43,7 +44,8 @@ var L09_Ententeich;
             let middleMountainHeight = 250;
             crc2.beginPath();
             crc2.moveTo(crc2.canvas.width * 0.3, horizon);
-            crc2.lineTo(crc2.canvas.width * 0.6, horizon - middleMountainHeight);
+            crc2.lineTo(crc2.canvas.width * 0.5, horizon - middleMountainHeight);
+            crc2.quadraticCurveTo(crc2.canvas.width * 0.55, horizon - middleMountainHeight - 50, crc2.canvas.width * 0.6, horizon - middleMountainHeight);
             crc2.lineTo(crc2.canvas.width * 0.9, horizon);
             crc2.closePath();
             crc2.fillStyle = "#60a22c"; // Grünton für den mittleren Berg
@@ -51,8 +53,8 @@ var L09_Ententeich;
             // Rechte Bergspitze (größter Berg)
             crc2.beginPath();
             crc2.moveTo(crc2.canvas.width * 0.7, horizon);
-            crc2.lineTo(crc2.canvas.width * 1.0, 50);
-            crc2.lineTo(crc2.canvas.width * 1.3, horizon);
+            crc2.lineTo(crc2.canvas.width * 0.95, 50);
+            crc2.quadraticCurveTo(crc2.canvas.width * 1.025, 20, crc2.canvas.width * 1.1, horizon);
             crc2.closePath();
             crc2.fillStyle = "#357305"; // Grünton für den rechten Berg
             crc2.fill();
@@ -80,5 +82,5 @@ var L09_Ententeich;
         drawMountains();
         drawPond();
     }
-})(L09_Ententeich || (L09_Ententeich = {}));
+})(L09_EntenteichClasses || (L09_EntenteichClasses = {}));
 //# sourceMappingURL=main.js.map
