@@ -6,6 +6,7 @@ Matrikel: 275813
 Datum: 11.05.24
 Quellen: mithilfe von ChatGPT erarbeitet da ich sonst verzweifelt wäre
 */
+Object.defineProperty(exports, "__esModule", { value: true });
 var L09_EntenteichClasses;
 (function (L09_EntenteichClasses) {
     window.addEventListener("load", handleLoad);
@@ -78,9 +79,126 @@ var L09_EntenteichClasses;
             crc2.fillStyle = "#48CAE4"; // Blauton für den Teich
             crc2.fill();
         }
+        class Duck {
+            canvas;
+            context;
+            position;
+            constructor(canvas, context, position) {
+                this.canvas = canvas;
+                this.context = context;
+                this.position = position;
+            }
+            draw() {
+                this.drawHead();
+                this.drawBody();
+                this.drawEye();
+                this.drawBeak();
+            }
+            drawHead() {
+                this.context.beginPath();
+                this.context.arc(this.position.x + 50, this.position.y + 30, 40, 0, Math.PI * 2);
+                this.context.fillStyle = 'yellow';
+                this.context.fill();
+                this.context.closePath();
+            }
+            drawBody() {
+                this.context.beginPath();
+                this.context.ellipse(this.position.x + 50, this.position.y + 80, 50, 30, 0, 0, Math.PI * 2);
+                this.context.fillStyle = 'yellow';
+                this.context.fill();
+                this.context.closePath();
+            }
+            drawEye() {
+                this.context.beginPath();
+                this.context.arc(this.position.x + 30, this.position.y + 20, 5, 0, Math.PI * 2);
+                this.context.fillStyle = 'black';
+                this.context.fill();
+                this.context.closePath();
+            }
+            drawBeak() {
+                this.context.beginPath();
+                this.context.moveTo(this.position.x + 60, this.position.y + 30);
+                this.context.lineTo(this.position.x + 80, this.position.y + 30);
+                this.context.lineTo(this.position.x + 70, this.position.y + 40);
+                this.context.fillStyle = 'red';
+                this.context.fill();
+                this.context.closePath();
+            }
+        }
         drawBackground();
         drawMountains();
         drawPond();
+        // Verwendung
+        const context = canvas.getContext('2d');
+        const pondX = (canvas.width - 700) / 2; // Position X des Teichs (Mitte des Canvas - Hälfte der Teichbreite)
+        const pondY = canvas.height * 0.7 - 200 / 2; // Position Y des Teichs (etwas höher als zuvor)
+        const ducks = [];
+        ducks.push(new Duck(canvas, context, { x: pondX + 20, y: pondY + 20 }));
+        ducks.push(new Duck(canvas, context, { x: pondX + 120, y: pondY + 80 }));
+        ducks.push(new Duck(canvas, context, { x: pondX + 200, y: pondY + 40 }));
+        // Alle Enten zeichnen
+        ducks.forEach(duck => duck.draw());
+        class Cloud {
+            canvas;
+            context;
+            position;
+            size;
+            constructor(canvas, context, position, size) {
+                this.canvas = canvas;
+                this.context = context;
+                this.position = position;
+                this.size = size;
+            }
+            draw() {
+                this.context.beginPath();
+                this.context.fillStyle = 'white';
+                // Zeichne drei überlappende Ellipsen für die Wolke
+                this.drawEllipse(this.position.x - this.size * 0.6, this.position.y, this.size * 0.8, this.size * 0.6);
+                this.drawEllipse(this.position.x, this.position.y, this.size, this.size * 0.7);
+                this.drawEllipse(this.position.x + this.size * 0.6, this.position.y, this.size * 0.8, this.size * 0.6);
+                this.context.closePath();
+                this.context.fill();
+            }
+            drawEllipse(x, y, width, height) {
+                this.context.save();
+                this.context.beginPath();
+                this.context.translate(x + width / 2, y + height / 2);
+                this.context.scale(1, height / width);
+                this.context.arc(0, 0, width / 2, 0, Math.PI * 2);
+                this.context.restore();
+                this.context.fill(); // Füllen der Ellipse
+            }
+        }
+        // Verwendung
+        const clouds = [];
+        clouds.push(new Cloud(canvas, context, { x: 100, y: 150 }, 50));
+        clouds.push(new Cloud(canvas, context, { x: 300, y: 100 }, 70));
+        clouds.push(new Cloud(canvas, context, { x: 500, y: 130 }, 90));
+        // Alle Wolken zeichnen
+        clouds.forEach(cloud => cloud.draw());
+        animate();
+        function animate() {
+            updateClouds(); // Wolken aktualisieren
+            draw(); // Alles neu zeichnen
+            requestAnimationFrame(animate); // Die Animation in einer Endlosschleife fortsetzen
+        }
+        function updateClouds() {
+            clouds.forEach(cloud => {
+                cloud.move(); // Wolken aktualisieren
+            });
+        }
+        function draw() {
+            crc2.clearRect(0, 0, crc2.canvas.width, crc2.canvas.height); // Leinwand löschen
+            drawBackground();
+            drawMountains();
+            drawPond();
+            drawClouds(); // Wolken zeichnen
+        }
+        function drawClouds() {
+            clouds.forEach(cloud => {
+                cloud.draw(); // Wolken zeichnen
+            });
+        }
     }
 })(L09_EntenteichClasses || (L09_EntenteichClasses = {}));
 //# sourceMappingURL=main.js.map

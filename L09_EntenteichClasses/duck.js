@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var L09_EntenteichClasses;
 (function (L09_EntenteichClasses) {
-    class cloud {
+    class duck {
         position;
         velocity;
         type;
@@ -15,6 +15,6 @@ var L09_EntenteichClasses;
         draw() {
         }
     }
-    L09_EntenteichClasses.cloud = cloud;
+    L09_EntenteichClasses.duck = duck;
 })(L09_EntenteichClasses || (L09_EntenteichClasses = {}));
 //# sourceMappingURL=duck.js.map

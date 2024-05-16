@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cloud = void 0;
-const Vector_1 = require("./Vector");
 console.log("clouds.js wurde geladen");
 class Cloud {
     position;
@@ -10,7 +9,7 @@ class Cloud {
     constructor(position, size) {
         this.position = position;
         this.size = size;
-        this.velocity = new Vector_1.Vector(Math.random() * 0.1 + 0.1, 0); // Zufällige horizontale Geschwindigkeit
+        this.velocity = new Vector(Math.random() * 0.1 + 0.1, 0); // Zufällige horizontale Geschwindigkeit
     }
     move() {
         // Bewegung basierend auf der Geschwindigkeit
@@ -41,4 +40,4 @@ class Cloud {
     }
 }
 exports.Cloud = Cloud;
-//# sourceMappingURL=Cloud.js.map
+//# sourceMappingURL=clouds.js.map

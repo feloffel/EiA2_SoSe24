@@ -2,7 +2,7 @@ import { Vector } from "./Vector";
 
 namespace L09_EntenteichClasses {
 
-    export class cloud {
+    export class duck {
         position: Vector;
         velocity: Vector;
         type: number;
