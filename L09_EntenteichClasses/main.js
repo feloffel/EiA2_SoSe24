@@ -6,7 +6,6 @@ Matrikel: 275813
 Datum: 11.05.24
 Quellen: mithilfe von ChatGPT erarbeitet da ich sonst verzweifelt wäre
 */
-Object.defineProperty(exports, "__esModule", { value: true });
 var L09_EntenteichClasses;
 (function (L09_EntenteichClasses) {
     window.addEventListener("load", handleLoad);
@@ -176,29 +175,6 @@ var L09_EntenteichClasses;
         clouds.push(new Cloud(canvas, context, { x: 500, y: 130 }, 90));
         // Alle Wolken zeichnen
         clouds.forEach(cloud => cloud.draw());
-        animate();
-        function animate() {
-            updateClouds(); // Wolken aktualisieren
-            draw(); // Alles neu zeichnen
-            requestAnimationFrame(animate); // Die Animation in einer Endlosschleife fortsetzen
-        }
-        function updateClouds() {
-            clouds.forEach(cloud => {
-                cloud.move(); // Wolken aktualisieren
-            });
-        }
-        function draw() {
-            crc2.clearRect(0, 0, crc2.canvas.width, crc2.canvas.height); // Leinwand löschen
-            drawBackground();
-            drawMountains();
-            drawPond();
-            drawClouds(); // Wolken zeichnen
-        }
-        function drawClouds() {
-            clouds.forEach(cloud => {
-                cloud.draw(); // Wolken zeichnen
-            });
-        }
     }
 })(L09_EntenteichClasses || (L09_EntenteichClasses = {}));
 //# sourceMappingURL=main.js.map
