@@ -1,5 +1,5 @@
 // Vector.ts
-
+namespace L09_EntenteichClasses {
     export class Vector {
         x: number;
         y: number;
@@ -23,3 +23,4 @@
             return new Vector(this.x, this.y);
         }
     }
+}

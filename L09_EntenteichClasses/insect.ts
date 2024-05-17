@@ -1,5 +1,3 @@
-import { Vector } from "./Vector";
-
 namespace L09_EntenteichClasses {
 
     export class insect {

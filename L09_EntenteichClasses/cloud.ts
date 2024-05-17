@@ -1,14 +1,4 @@
 namespace L09_EntenteichClasses {
-
-    interface Vector {
-        x: number;
-        y: number;
-    }
-
-    let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
-    let crc2: CanvasRenderingContext2D = canvas!.getContext('2d') as CanvasRenderingContext2D;
-
-
     export class Cloud {
         position: Vector;
         velocity: Vector;
