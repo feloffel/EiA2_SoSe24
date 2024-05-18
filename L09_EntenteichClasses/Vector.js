@@ -1,5 +1,4 @@
 "use strict";
-// Vector.ts
 var L09_EntenteichClasses;
 (function (L09_EntenteichClasses) {
     class Vector {

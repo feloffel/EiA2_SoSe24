@@ -24,7 +24,6 @@ var L09_EntenteichClasses;
             }
         }
         draw() {
-            // Zeichne die Wolke wie zuvor
             L09_EntenteichClasses.crc2.beginPath();
             L09_EntenteichClasses.crc2.fillStyle = 'white';
             // Zeichne drei überlappende Ellipsen für die Wolke

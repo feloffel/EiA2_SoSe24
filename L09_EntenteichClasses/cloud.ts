@@ -27,7 +27,6 @@ namespace L09_EntenteichClasses {
         }
 
         draw(): void {
-            // Zeichne die Wolke wie zuvor
             crc2.beginPath();
             crc2.fillStyle = 'white';
 
