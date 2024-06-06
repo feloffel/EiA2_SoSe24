@@ -3,6 +3,7 @@ var L09_EntenteichClasses;
 (function (L09_EntenteichClasses) {
     window.addEventListener("load", handleLoad);
     let line = 0.46;
+    let ducks = [];
     function handleLoad(_event) {
         let canvas = document.querySelector("canvas");
         if (!canvas)
@@ -14,22 +15,37 @@ var L09_EntenteichClasses;
         drawBackground(horizon);
         drawMountains(horizon);
         drawPond();
-        let pondArea = {
-            x: (1440 - 500) / 2,
-            y: 780 * 0.7 - 200 / 2,
-            width: 500,
-            height: 200
-        };
-        const ducks = [];
-        ducks.push(new L09_EntenteichClasses.Duck(new L09_EntenteichClasses.Vector(pondArea.x + 50, pondArea.y + 50), pondArea));
-        ducks.push(new L09_EntenteichClasses.Duck(new L09_EntenteichClasses.Vector(pondArea.x + 150, pondArea.y + 150), pondArea));
-        ducks.push(new L09_EntenteichClasses.Duck(new L09_EntenteichClasses.Vector(pondArea.x + 250, pondArea.y + 100), pondArea));
-        ducks.forEach(duck => duck.draw());
         const clouds = [];
         clouds.push(new L09_EntenteichClasses.Cloud(new L09_EntenteichClasses.Vector(100, 150), new L09_EntenteichClasses.Vector(100, 0), 100));
         clouds.push(new L09_EntenteichClasses.Cloud(new L09_EntenteichClasses.Vector(300, 100), new L09_EntenteichClasses.Vector(30, 0), 100));
         clouds.push(new L09_EntenteichClasses.Cloud(new L09_EntenteichClasses.Vector(500, 130), new L09_EntenteichClasses.Vector(60, 0), 100));
-        setInterval(() => animate(horizon, ducks, clouds), 40);
+        // Erstelle die Enten
+        for (let i = 0; i < 10; i++) {
+            ducks.push(createDuck());
+        }
+        setInterval(() => animate(horizon, clouds), 40);
+    }
+    function createDuck() {
+        let r = Math.random();
+        let state = "swim";
+        let pondX = (L09_EntenteichClasses.crc2.canvas.width - 700) / 2;
+        let pondY = L09_EntenteichClasses.crc2.canvas.height * 0.7 - 200 / 2;
+        let x = pondX + Math.random() * 700;
+        let y = pondY + Math.random() * 200;
+        if (r < 0.3) {
+            state = "stand";
+            x = pondX + Math.random() * 700;
+            y = pondY + Math.random() * 80;
+        }
+        else if (r > 0.8) {
+            state = "dive";
+            x = pondX + Math.random() * 700;
+            y = pondY + Math.random() * 100;
+        }
+        let initialPosition = new L09_EntenteichClasses.Vector(x, y);
+        let pondArea = { x: pondX, y: pondY, width: 700, height: 200 };
+        let duck = new L09_EntenteichClasses.Duck(initialPosition, pondArea, state);
+        return duck;
     }
     function drawBackground(horizon) {
         console.log("Background");
@@ -173,7 +189,8 @@ var L09_EntenteichClasses;
         L09_EntenteichClasses.crc2.closePath();
         L09_EntenteichClasses.crc2.fill();
     }
-    function animate(horizon, ducks, clouds) {
+    function animate(horizon, clouds) {
+        L09_EntenteichClasses.crc2.clearRect(0, 0, L09_EntenteichClasses.crc2.canvas.width, L09_EntenteichClasses.crc2.canvas.height);
         drawBackground(horizon);
         drawPond();
         drawMountains(horizon);
@@ -213,10 +230,9 @@ var L09_EntenteichClasses;
             { x: 1100, y: 690 },
             { x: 700, y: 695 },
             { x: 250, y: 710 },
-            { x: 1250, y: 720 },
+            { x: 1250, y: 720 }
         ]);
         drawSeaLeaf(920, 530, 50, 70);
-        ducks.forEach(duck => duck.draw());
         clouds.forEach(cloud => cloud.move(40 / 1000));
         clouds.forEach(cloud => cloud.draw());
         drawTrees([
@@ -232,6 +248,7 @@ var L09_EntenteichClasses;
             { x: 1200, y: 600 },
             { x: 1350, y: 500 },
         ]);
+        ducks.forEach(duck => duck.draw());
     }
 })(L09_EntenteichClasses || (L09_EntenteichClasses = {}));
 //# sourceMappingURL=Main.js.map

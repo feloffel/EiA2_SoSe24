@@ -7,12 +7,7 @@ namespace L09_EntenteichClasses {
             this.velocity = new Vector((Math.random() - 0.5) * 2, (Math.random() - 0.5) * 2);
             this.pondArea = pondArea;
 
-            this.pondArea = {
-                x: pondArea.x + 50,
-                y: pondArea.y + 50,
-                width: pondArea.width - 100,
-                height: pondArea.height - 100
-            };
+            
         }
 
         

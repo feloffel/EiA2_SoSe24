@@ -7,12 +7,6 @@ var L09_EntenteichClasses;
             super(initialPosition);
             this.velocity = new L09_EntenteichClasses.Vector((Math.random() - 0.5) * 2, (Math.random() - 0.5) * 2);
             this.pondArea = pondArea;
-            this.pondArea = {
-                x: pondArea.x + 50,
-                y: pondArea.y + 50,
-                width: pondArea.width - 100,
-                height: pondArea.height - 100
-            };
         }
         draw() {
             L09_EntenteichClasses.crc2.fillStyle = "yellow";

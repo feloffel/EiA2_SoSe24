@@ -18,9 +18,9 @@ namespace L09_EntenteichClasses {
         drawPond();
 
         let pondArea = {
-            x: (crc2.canvas.width - 700) / 2,
-            y: crc2.canvas.height * 0.7 - 200 / 2,
-            width: 700,
+            x: (1440 - 500) / 2,
+            y: 780 * 0.7 - 200 / 2,
+            width: 500,
             height: 200
         };
 
