@@ -1,23 +1,31 @@
-// bee.ts
 namespace L09_EntenteichClasses {
     export class Bee extends Moveable {
         size: number;
         crc2: CanvasRenderingContext2D;
 
-        constructor(crc2: CanvasRenderingContext2D, position: Vector, size: number) {
-            super(position);
+        constructor(crc2: CanvasRenderingContext2D, position: Vector, size: number, velocity: Vector) {
+            super(position); // Aufruf des Constructors der Superklasse mit einer Position
             this.crc2 = crc2;
+            this.velocity = velocity; // Geschwindigkeit setzen
             this.size = size;
-            
         }
 
+        public move(timeslice: number): void {
+            // Berechne die Verschiebung basierend auf der Geschwindigkeit und der Zeit
+            const offsetX = this.velocity.x * timeslice;
+            const offsetY = this.velocity.y * timeslice;
 
-        
+            // Aktualisiere die Position der Biene
+            this.position.add(new Vector(offsetX, offsetY));
 
+            // Überprüfe, ob die Biene den rechten Rand des Canvas erreicht hat
+            // Wenn ja, setze die Position auf den linken Rand zurück
+            if (this.position.x > this.crc2.canvas.width + this.size) {
+                this.position.x = -this.size;
+            }
+        }
 
-
-
-        draw(): void {
+        public draw(): void {
             const crc2 = this.crc2;
 
             // Draw body (yellow oval)

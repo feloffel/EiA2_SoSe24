@@ -5,9 +5,9 @@ var L09_EntenteichClasses;
         size;
         crc2;
         constructor(crc2, position, size, velocity) {
-            super(position); // Aufruf des Constructors der Superklasse mit einer Position
+            super(position);
             this.crc2 = crc2;
-            this.velocity = velocity; // Geschwindigkeit setzen
+            this.velocity = velocity;
             this.size = size;
         }
         move(timeslice) {

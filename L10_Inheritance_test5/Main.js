@@ -4,6 +4,8 @@ var L09_EntenteichClasses;
     window.addEventListener("load", handleLoad);
     let line = 0.46;
     let ducks = [];
+    let clouds = [];
+    let bees = []; // Liste von Bienen hinzufügen
     function handleLoad(_event) {
         let canvas = document.querySelector("canvas");
         if (!canvas)
@@ -16,15 +18,17 @@ var L09_EntenteichClasses;
         drawBackground(horizon);
         drawMountains(horizon);
         drawPond();
-        const clouds = [];
         clouds.push(new L09_EntenteichClasses.Cloud(new L09_EntenteichClasses.Vector(100, 150), new L09_EntenteichClasses.Vector(100, 0), 100));
         clouds.push(new L09_EntenteichClasses.Cloud(new L09_EntenteichClasses.Vector(300, 100), new L09_EntenteichClasses.Vector(30, 0), 100));
         clouds.push(new L09_EntenteichClasses.Cloud(new L09_EntenteichClasses.Vector(500, 130), new L09_EntenteichClasses.Vector(60, 0), 100));
+        bees.push(new L09_EntenteichClasses.Bee(L09_EntenteichClasses.crc2, new L09_EntenteichClasses.Vector(Math.random() * L09_EntenteichClasses.crc2.canvas.width, Math.random() * L09_EntenteichClasses.crc2.canvas.height), 15, new L09_EntenteichClasses.Vector(200, 0)));
+        bees.push(new L09_EntenteichClasses.Bee(L09_EntenteichClasses.crc2, new L09_EntenteichClasses.Vector(Math.random() * L09_EntenteichClasses.crc2.canvas.width, Math.random() * L09_EntenteichClasses.crc2.canvas.height), 15, new L09_EntenteichClasses.Vector(70, 0)));
+        bees.push(new L09_EntenteichClasses.Bee(L09_EntenteichClasses.crc2, new L09_EntenteichClasses.Vector(Math.random() * L09_EntenteichClasses.crc2.canvas.width, Math.random() * L09_EntenteichClasses.crc2.canvas.height), 15, new L09_EntenteichClasses.Vector(160, 0)));
         // Erstelle die Enten
         for (let i = 0; i < 5; i++) {
             ducks.push(createDuck());
         }
-        setInterval(() => animate(horizon, clouds), 40);
+        setInterval(() => animate(horizon, clouds, bees), 40);
     }
     function createDuck() {
         let r = Math.random();
@@ -190,7 +194,7 @@ var L09_EntenteichClasses;
         L09_EntenteichClasses.crc2.closePath();
         L09_EntenteichClasses.crc2.fill();
     }
-    function animate(horizon, clouds) {
+    function animate(horizon, clouds, bees) {
         L09_EntenteichClasses.crc2.clearRect(0, 0, L09_EntenteichClasses.crc2.canvas.width, L09_EntenteichClasses.crc2.canvas.height);
         drawBackground(horizon);
         drawPond();
@@ -249,6 +253,8 @@ var L09_EntenteichClasses;
             { x: 1200, y: 600 },
             { x: 1350, y: 500 },
         ]);
+        bees.forEach(bee => bee.move(40 / 1000));
+        bees.forEach(bee => bee.draw());
         ducks.forEach(duck => duck.draw());
     }
 })(L09_EntenteichClasses || (L09_EntenteichClasses = {}));

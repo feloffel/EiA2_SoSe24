@@ -3,6 +3,10 @@ namespace L09_EntenteichClasses {
   export let crc2: CanvasRenderingContext2D;
   let line: number = 0.46;
   let ducks: Duck[] = [];
+  let clouds: Cloud[] = [];
+  let bees: Bee[] = []; // Liste von Bienen hinzufügen
+
+
   
 
   function handleLoad(_event: Event): void {
@@ -16,7 +20,6 @@ namespace L09_EntenteichClasses {
 
       let horizon: number = crc2.canvas.height * line;
 
-      
   
 
 
@@ -24,20 +27,29 @@ namespace L09_EntenteichClasses {
       drawMountains(horizon);
       drawPond();
 
-      const clouds: Cloud[] = [];
+
       clouds.push(new Cloud(new Vector(100, 150), new Vector(100, 0), 100));
       clouds.push(new Cloud(new Vector(300, 100), new Vector(30, 0), 100));
       clouds.push(new Cloud(new Vector(500, 130), new Vector(60, 0), 100));
+
+      bees.push(new Bee(crc2, new Vector(Math.random() * crc2.canvas.width, Math.random() * crc2.canvas.height), 15, new Vector(200, 0)));
+bees.push(new Bee(crc2, new Vector(Math.random() * crc2.canvas.width, Math.random() * crc2.canvas.height), 15, new Vector(70, 0)));
+bees.push(new Bee(crc2, new Vector(Math.random() * crc2.canvas.width, Math.random() * crc2.canvas.height), 15, new Vector(160, 0)));
+
+
 
       // Erstelle die Enten
       for (let i = 0; i < 5; i++) {
           ducks.push(createDuck());
       }
 
-
-
-      setInterval(() => animate(horizon, clouds), 40);
+   
+      setInterval(() => animate(horizon, clouds, bees), 40);
   }
+
+
+
+
 
   function createDuck(): Duck {
     let r: number = Math.random();
@@ -232,56 +244,7 @@ namespace L09_EntenteichClasses {
   }
   
 
-  function drawBee(crc2: CanvasRenderingContext2D, x: number, y: number, size: number) {
-    // Draw body (yellow oval)
-    crc2.beginPath();
-    crc2.fillStyle = 'yellow';
-    crc2.ellipse(x, y, size * 1.5, size, 0, 0, Math.PI * 2);
-    crc2.fill();
-    crc2.closePath();
-
-    // Draw stripes (three black stripes)
-    crc2.beginPath();
-    crc2.fillStyle = 'black';
-    crc2.fillRect(x - size * 0.4, y - size, size * 0.3, size * 2);
-    crc2.fillRect(x, y - size, size * 0.3, size * 2);
-    crc2.fillRect(x + size * 0.4, y - size, size * 0.3, size * 2);
-    crc2.closePath();
-
-    // Draw wings (white ellipses)
-    crc2.beginPath();
-    crc2.fillStyle = 'white';
-    crc2.ellipse(x - size * 0.4, y - size * 0.8, size * 0.8, size * 0.4, Math.PI * 0.25, 0, Math.PI * 2);
-    crc2.fill();
-    crc2.closePath();
-
-    crc2.beginPath();
-    crc2.ellipse(x + size * 0.4, y - size * 0.8, size * 0.8, size * 0.4, -Math.PI * 0.25, 0, Math.PI * 2);
-    crc2.fill();
-    crc2.closePath();
-
-    // Draw eye (black circle)
-    crc2.beginPath();
-    crc2.fillStyle = 'black';
-    crc2.arc(x - size * 0.3, y - size * 0.4, size * 0.1, 0, Math.PI * 2);
-    crc2.fill();
-    crc2.closePath();
-
-    // black eye
-    crc2.beginPath();
-    crc2.moveTo(x + size * 1.2, y);
-    crc2.lineTo(x + size * 1.4, y + size * 0.2);
-    crc2.lineTo(x + size * 1.4, y - size * 0.2);
-    crc2.fill();
-    crc2.closePath();
-}
-
-
-
-
-
-
-  function animate(horizon: number, clouds: Cloud[]): void {
+  function animate(horizon: number, clouds: Cloud[], bees: Bee[]): void {
     crc2.clearRect(0, 0, crc2.canvas.width, crc2.canvas.height);
     drawBackground(horizon);
     drawPond();
@@ -344,7 +307,10 @@ namespace L09_EntenteichClasses {
       { x: 1350, y: 500 },
     ]);
 
+    bees.forEach(bee => bee.move(40 / 1000));
+    bees.forEach(bee => bee.draw());
 
     ducks.forEach(duck => duck.draw());
+
   }
 }
