@@ -128,23 +128,23 @@ namespace L09_EntenteichClasses {
         }
     }
 
-    // Wenn die Ente den linken Rand des Bewegungsbereichs erreicht hat
-    if (this.position.x <= this.pondArea.x) {
-        this.mirror = false; // Richtung umkehren
-    }
-    // Wenn die Ente den rechten Rand des Bewegungsbereichs erreicht hat
-    else if (this.position.x >= this.pondArea.x + movementAreaWidth - 100) {
-        this.mirror = true; // Richtung umkehren
-    }
+    // // Wenn die Ente den linken Rand des Bewegungsbereichs erreicht hat
+    // if (this.position.x <= this.pondArea.x) {
+    //     this.mirror = false; // Richtung umkehren
+    // }
+    // // Wenn die Ente den rechten Rand des Bewegungsbereichs erreicht hat
+    // else if (this.position.x >= this.pondArea.x + movementAreaWidth - 100) {
+    //     this.mirror = true; // Richtung umkehren
+    // }
 
-    // Abhängig von der Richtung bewegen
-    if (this.mirror === true) {
-        // Ente nach links bewegen
-        this.position.x -= offsetX;
-    } else {
-        // Ente nach rechts bewegen
-        this.position.x += offsetX;
-    }
+    // // Abhängig von der Richtung bewegen
+    // if (this.mirror === true) {
+    //     // Ente nach links bewegen
+    //     this.position.x -= offsetX;
+    // } else {
+    //     // Ente nach rechts bewegen
+    //     this.position.x += offsetX;
+    // }
 
     // Vertikale Bewegung im Bewegungsbereich einschränken
     if (this.position.y <= this.pondArea.y) {
