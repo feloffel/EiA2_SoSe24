@@ -1,15 +1,18 @@
 "use strict";
-// Duck.ts
 var L09_EntenteichClasses;
 (function (L09_EntenteichClasses) {
     class Duck extends L09_EntenteichClasses.Moveable {
         pondArea;
         state;
-        constructor(initialPosition, pondArea, _state) {
+        mirror;
+        underWater;
+        constructor(initialPosition, pondArea, _state, _mirror) {
             super(initialPosition);
             this.velocity = new L09_EntenteichClasses.Vector((Math.random() - 0.5) * 2, (Math.random() - 0.5) * 2);
             this.pondArea = pondArea;
             this.state = _state;
+            this.mirror = _mirror;
+            this.underWater = -1;
         }
         draw() {
             switch (this.state) {
@@ -45,7 +48,7 @@ var L09_EntenteichClasses;
             L09_EntenteichClasses.crc2.arc(this.position.x + 25, this.position.y - 15, 2, 0, Math.PI * 2);
             L09_EntenteichClasses.crc2.closePath();
             L09_EntenteichClasses.crc2.fill();
-            this.move(0.04);
+            this.move();
             this.updatePosition();
         }
         drawTail() {
@@ -54,6 +57,8 @@ var L09_EntenteichClasses;
             L09_EntenteichClasses.crc2.arc(this.position.x, this.position.y, 20, Math.PI, 2 * Math.PI); // Halber Kreis
             L09_EntenteichClasses.crc2.closePath();
             L09_EntenteichClasses.crc2.fill();
+            this.move();
+            this.updatePosition();
         }
         drawStanding() {
             L09_EntenteichClasses.crc2.fillStyle = "yellow";
@@ -80,31 +85,56 @@ var L09_EntenteichClasses;
             L09_EntenteichClasses.crc2.fillStyle = "orange";
             L09_EntenteichClasses.crc2.fillRect(this.position.x - 10, this.position.y + 10, 5, 20);
             L09_EntenteichClasses.crc2.fillRect(this.position.x + 5, this.position.y + 10, 5, 20);
-            this.move(0.04);
+            this.move();
             this.updatePosition();
         }
-        move(_timeslice) {
-            // Geschwindigkeitskomponenten berechnen
-            let offsetX = this.velocity.x * _timeslice;
-            let offsetY = this.velocity.y * _timeslice;
-            // Neue Position berechnen
-            let newX = this.position.x + offsetX;
-            let newY = this.position.y + offsetY;
-            // Überprüfen, ob die neue Position innerhalb der Teichgrenzen liegt
-            if (newX >= this.pondArea.x &&
-                newX <= this.pondArea.x + this.pondArea.width &&
-                newY >= this.pondArea.y &&
-                newY <= this.pondArea.y + this.pondArea.height) {
-                // Position innerhalb der Grenzen, aktualisieren
-                this.position.x = newX;
-                this.position.y = newY;
+        move() {
+            // Horizontalen und vertikalen Versatz initialisieren
+            let offsetX = 2; // Geschwindigkeit der Enten
+            // Definiere die Breite und Höhe des Bereichs, in dem sich die Enten bewegen sollen
+            let movementAreaWidth = 600; // Breite des Bewegungsbereichs
+            let movementAreaHeight = 180; // Höhe des Bewegungsbereichs
+            // Wenn die Ente sich im Schwimmzustand befindet
+            if (this.state === "swim") {
+                // Wenn die Ente zum Tauchzustand wechseln soll
+                if (Math.random() <= 0.001) {
+                    this.state = "dive";
+                }
+            }
+            // Wenn die Ente sich im Tauchzustand befindet
+            else if (this.state === "dive") {
+                // Zähler für die Unterwasserzeit erhöhen
+                this.underWater++;
+                // Wenn die Ente genug Zeit unter Wasser verbracht hat
+                if (this.underWater >= 50 && Math.random() >= 0.001) {
+                    this.state = "swim";
+                    this.underWater = -1; // Zähler zurücksetzen
+                }
+            }
+            // Wenn die Ente den linken Rand des Bewegungsbereichs erreicht hat
+            if (this.position.x <= this.pondArea.x) {
+                this.mirror = false; // Richtung umkehren
+            }
+            // Wenn die Ente den rechten Rand des Bewegungsbereichs erreicht hat
+            else if (this.position.x >= this.pondArea.x + movementAreaWidth - 100) {
+                this.mirror = true; // Richtung umkehren
+            }
+            // Abhängig von der Richtung bewegen
+            if (this.mirror === true) {
+                // Ente nach links bewegen
+                this.position.x -= offsetX;
             }
             else {
-                // Wenn die Ente den Rand des Teichs erreicht hat, Richtung umkehren
-                this.velocity.x *= -1; // Richtung horizontal umkehren
-                this.velocity.y *= -1; // Richtung vertikal umkehren
+                // Ente nach rechts bewegen
+                this.position.x += offsetX;
             }
-            this.updatePosition();
+            // Vertikale Bewegung im Bewegungsbereich einschränken
+            if (this.position.y <= this.pondArea.y) {
+                this.position.y = this.pondArea.y;
+            }
+            else if (this.position.y >= this.pondArea.y + movementAreaHeight) {
+                this.position.y = this.pondArea.y + movementAreaHeight;
+            }
         }
     }
     L09_EntenteichClasses.Duck = Duck;

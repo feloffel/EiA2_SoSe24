@@ -48,8 +48,6 @@ var L09_EntenteichClasses;
             L09_EntenteichClasses.crc2.arc(this.position.x + 25, this.position.y - 15, 2, 0, Math.PI * 2);
             L09_EntenteichClasses.crc2.closePath();
             L09_EntenteichClasses.crc2.fill();
-            this.move();
-            this.updatePosition();
         }
         drawTail() {
             L09_EntenteichClasses.crc2.fillStyle = "yellow";
@@ -57,8 +55,6 @@ var L09_EntenteichClasses;
             L09_EntenteichClasses.crc2.arc(this.position.x, this.position.y, 20, Math.PI, 2 * Math.PI); // Halber Kreis
             L09_EntenteichClasses.crc2.closePath();
             L09_EntenteichClasses.crc2.fill();
-            this.move();
-            this.updatePosition();
         }
         drawStanding() {
             L09_EntenteichClasses.crc2.fillStyle = "yellow";
@@ -85,50 +81,35 @@ var L09_EntenteichClasses;
             L09_EntenteichClasses.crc2.fillStyle = "orange";
             L09_EntenteichClasses.crc2.fillRect(this.position.x - 10, this.position.y + 10, 5, 20);
             L09_EntenteichClasses.crc2.fillRect(this.position.x + 5, this.position.y + 10, 5, 20);
-            this.move();
-            this.updatePosition();
         }
-        move() {
-            // Horizontalen und vertikalen Versatz initialisieren
-            let offsetX = 2; // Geschwindigkeit der Enten
-            // Definiere die Breite und Höhe des Bereichs, in dem sich die Enten bewegen sollen
-            let movementAreaWidth = 600; // Breite des Bewegungsbereichs
-            let movementAreaHeight = 180; // Höhe des Bewegungsbereichs
-            // Wenn die Ente sich im Schwimmzustand befindet
+        move(_timeslice) {
+            let offsetX = 2;
+            let movementAreaWidth = 600;
+            let movementAreaHeight = 180;
             if (this.state === "swim") {
-                // Wenn die Ente zum Tauchzustand wechseln soll
                 if (Math.random() <= 0.001) {
                     this.state = "dive";
                 }
             }
-            // Wenn die Ente sich im Tauchzustand befindet
             else if (this.state === "dive") {
-                // Zähler für die Unterwasserzeit erhöhen
                 this.underWater++;
-                // Wenn die Ente genug Zeit unter Wasser verbracht hat
                 if (this.underWater >= 50 && Math.random() >= 0.001) {
                     this.state = "swim";
-                    this.underWater = -1; // Zähler zurücksetzen
+                    this.underWater = -1;
                 }
             }
-            // Wenn die Ente den linken Rand des Bewegungsbereichs erreicht hat
             if (this.position.x <= this.pondArea.x) {
-                this.mirror = false; // Richtung umkehren
+                this.mirror = false;
             }
-            // Wenn die Ente den rechten Rand des Bewegungsbereichs erreicht hat
             else if (this.position.x >= this.pondArea.x + movementAreaWidth - 100) {
-                this.mirror = true; // Richtung umkehren
+                this.mirror = true;
             }
-            // Abhängig von der Richtung bewegen
             if (this.mirror === true) {
-                // Ente nach links bewegen
                 this.position.x -= offsetX;
             }
             else {
-                // Ente nach rechts bewegen
                 this.position.x += offsetX;
             }
-            // Vertikale Bewegung im Bewegungsbereich einschränken
             if (this.position.y <= this.pondArea.y) {
                 this.position.y = this.pondArea.y;
             }

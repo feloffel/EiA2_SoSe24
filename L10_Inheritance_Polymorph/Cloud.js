@@ -9,10 +9,10 @@ var L09_EntenteichClasses;
             this.size = size;
         }
         move(timeslice) {
-            // Berechne die Verschiebung basierend auf der Geschwindigkeit und der Zeit
+            //Verschiebung berechnen basierend auf der Geschwindigkeit und der Zeit
             const offsetX = this.velocity.x * timeslice;
             const offsetY = this.velocity.y * timeslice;
-            // Aktualisiere die Position der Wolke
+            // Aktualisieren der Position der Wolke
             this.position.add(new L09_EntenteichClasses.Vector(offsetX, offsetY));
             // Überprüfe, ob die Wolke den rechten Rand des Canvas erreicht hat
             // Wenn ja, setze die Position auf den linken Rand zurück
@@ -23,7 +23,7 @@ var L09_EntenteichClasses;
         draw() {
             L09_EntenteichClasses.crc2.beginPath();
             L09_EntenteichClasses.crc2.fillStyle = 'white';
-            // Zeichne drei überlappende Ellipsen für die Wolke
+            // Zeichnen von drei überlappenden Ellipsen für die Wolke
             this.drawEllipse(this.position.x - this.size * 0.6, this.position.y, this.size * 0.8, this.size * 0.6);
             this.drawEllipse(this.position.x, this.position.y, this.size, this.size * 0.7);
             this.drawEllipse(this.position.x + this.size * 0.6, this.position.y, this.size * 0.8, this.size * 0.6);

@@ -4,9 +4,9 @@ namespace L09_EntenteichClasses {
         crc2: CanvasRenderingContext2D;
 
         constructor(crc2: CanvasRenderingContext2D, position: Vector, size: number, velocity: Vector) {
-            super(position); // Aufruf des Constructors der Superklasse mit einer Position
+            super(position);
             this.crc2 = crc2;
-            this.velocity = velocity; // Geschwindigkeit setzen
+            this.velocity = velocity;
             this.size = size;
         }
 

@@ -3,7 +3,9 @@ var L09_EntenteichClasses;
 (function (L09_EntenteichClasses) {
     window.addEventListener("load", handleLoad);
     let line = 0.46;
-    let moveables = []; // Liste für alle Moveables (Enten, Wolken, Bienen)
+    let ducks = [];
+    let clouds = [];
+    let bees = []; // Liste von Bienen hinzufügen
     let staticImageData;
     function handleLoad(_event) {
         let canvas = document.querySelector("canvas");
@@ -72,17 +74,15 @@ var L09_EntenteichClasses;
         ]);
         // Speichern des Bildes der statischen Elemente (Sonne, Berge, Teich, Bäume, Pflanzen)
         staticImageData = L09_EntenteichClasses.crc2.getImageData(0, 0, canvas.width, canvas.height);
-        // Erstellen der Wolken
-        moveables.push(new L09_EntenteichClasses.Cloud(new L09_EntenteichClasses.Vector(100, 150), new L09_EntenteichClasses.Vector(100, 0), 100));
-        moveables.push(new L09_EntenteichClasses.Cloud(new L09_EntenteichClasses.Vector(300, 100), new L09_EntenteichClasses.Vector(30, 0), 100));
-        moveables.push(new L09_EntenteichClasses.Cloud(new L09_EntenteichClasses.Vector(500, 130), new L09_EntenteichClasses.Vector(60, 0), 100));
-        // Erstellen der Bienen
-        moveables.push(new L09_EntenteichClasses.Bee(L09_EntenteichClasses.crc2, new L09_EntenteichClasses.Vector(Math.random() * L09_EntenteichClasses.crc2.canvas.width, Math.random() * L09_EntenteichClasses.crc2.canvas.height), 15, new L09_EntenteichClasses.Vector(200, 0)));
-        moveables.push(new L09_EntenteichClasses.Bee(L09_EntenteichClasses.crc2, new L09_EntenteichClasses.Vector(Math.random() * L09_EntenteichClasses.crc2.canvas.width, Math.random() * L09_EntenteichClasses.crc2.canvas.height), 15, new L09_EntenteichClasses.Vector(70, 0)));
-        moveables.push(new L09_EntenteichClasses.Bee(L09_EntenteichClasses.crc2, new L09_EntenteichClasses.Vector(Math.random() * L09_EntenteichClasses.crc2.canvas.width, Math.random() * L09_EntenteichClasses.crc2.canvas.height), 15, new L09_EntenteichClasses.Vector(160, 0)));
+        clouds.push(new L09_EntenteichClasses.Cloud(new L09_EntenteichClasses.Vector(100, 150), new L09_EntenteichClasses.Vector(100, 0), 100));
+        clouds.push(new L09_EntenteichClasses.Cloud(new L09_EntenteichClasses.Vector(300, 100), new L09_EntenteichClasses.Vector(30, 0), 100));
+        clouds.push(new L09_EntenteichClasses.Cloud(new L09_EntenteichClasses.Vector(500, 130), new L09_EntenteichClasses.Vector(60, 0), 100));
+        bees.push(new L09_EntenteichClasses.Bee(L09_EntenteichClasses.crc2, new L09_EntenteichClasses.Vector(Math.random() * L09_EntenteichClasses.crc2.canvas.width, Math.random() * L09_EntenteichClasses.crc2.canvas.height), 15, new L09_EntenteichClasses.Vector(200, 0)));
+        bees.push(new L09_EntenteichClasses.Bee(L09_EntenteichClasses.crc2, new L09_EntenteichClasses.Vector(Math.random() * L09_EntenteichClasses.crc2.canvas.width, Math.random() * L09_EntenteichClasses.crc2.canvas.height), 15, new L09_EntenteichClasses.Vector(70, 0)));
+        bees.push(new L09_EntenteichClasses.Bee(L09_EntenteichClasses.crc2, new L09_EntenteichClasses.Vector(Math.random() * L09_EntenteichClasses.crc2.canvas.width, Math.random() * L09_EntenteichClasses.crc2.canvas.height), 15, new L09_EntenteichClasses.Vector(160, 0)));
         // Erstellen der Enten
         for (let i = 0; i < 5; i++) {
-            moveables.push(createDuck());
+            ducks.push(createDuck());
         }
         setInterval(() => animate(), 40);
     }
@@ -109,13 +109,20 @@ var L09_EntenteichClasses;
         return duck;
     }
     function animate() {
-        // Zurücksetzen des gespeicherten Bild der statischen Teile 
+        // Setze das gespeicherte Bild der statischen Teile zurück
         L09_EntenteichClasses.crc2.putImageData(staticImageData, 0, 0);
-        // Bewegen + zeichnen der Moveables (Enten, Wolken, Bienen)
-        moveables.forEach(moveable => {
-            moveable.move(40 / 1000);
-            moveable.draw();
+        // Bewege und zeichne die Wolken
+        clouds.forEach(cloud => {
+            cloud.move(40 / 1000);
+            cloud.draw();
         });
+        // Bewege und zeichne die Bienen
+        bees.forEach(bee => {
+            bee.move(40 / 1000);
+            bee.draw();
+        });
+        // Zeichne die Enten
+        ducks.forEach(duck => duck.draw());
     }
 })(L09_EntenteichClasses || (L09_EntenteichClasses = {}));
 //# sourceMappingURL=Main.js.map

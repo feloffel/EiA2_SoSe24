@@ -4,9 +4,9 @@ var L09_EntenteichClasses;
     class Cloud extends L09_EntenteichClasses.Moveable {
         size;
         constructor(position, velocity, size) {
-            super(position); // Aufruf des Constructors der Superklasse mit einer Position
-            this.velocity = velocity; // Geschwindigkeit setzen
-            this.size = size; // Größe setzen
+            super(position);
+            this.velocity = velocity;
+            this.size = size;
         }
         move(timeslice) {
             // Berechne die Verschiebung basierend auf der Geschwindigkeit und der Zeit

@@ -1,12 +1,12 @@
 namespace L09_EntenteichClasses {
-        export class Cloud extends Moveable {
-            size: number;
-    
-            constructor(position: Vector, velocity: Vector, size: number) {
-                super(position); // Aufruf des Constructors der Superklasse mit einer Position
-                this.velocity = velocity; // Geschwindigkeit setzen
-                this.size = size; // Größe setzen
-            }
+    export class Cloud extends Moveable {
+        size: number;
+
+        constructor(position: Vector, velocity: Vector, size: number) {
+            super(position);
+            this.velocity = velocity;
+            this.size = size;
+        }
     
             public move(timeslice: number): void {
                 // Berechne die Verschiebung basierend auf der Geschwindigkeit und der Zeit

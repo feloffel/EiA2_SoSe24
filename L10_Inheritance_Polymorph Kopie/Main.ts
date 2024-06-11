@@ -2,7 +2,9 @@ namespace L09_EntenteichClasses {
   window.addEventListener("load", handleLoad);
   export let crc2: CanvasRenderingContext2D;
   let line: number = 0.46;
-  let moveables: Moveable[] = []; // Liste für alle Moveables (Enten, Wolken, Bienen)
+  let ducks: Duck[] = [];
+  let clouds: Cloud[] = [];
+  let bees: Bee[] = []; // Liste von Bienen hinzufügen
   let staticImageData: ImageData;
 
   function handleLoad(_event: Event): void {
@@ -76,19 +78,17 @@ namespace L09_EntenteichClasses {
       // Speichern des Bildes der statischen Elemente (Sonne, Berge, Teich, Bäume, Pflanzen)
       staticImageData = crc2.getImageData(0, 0, canvas.width, canvas.height);
 
-      // Erstellen der Wolken
-      moveables.push(new Cloud(new Vector(100, 150), new Vector(100, 0), 100));
-      moveables.push(new Cloud(new Vector(300, 100), new Vector(30, 0), 100));
-      moveables.push(new Cloud(new Vector(500, 130), new Vector(60, 0), 100));
+      clouds.push(new Cloud(new Vector(100, 150), new Vector(100, 0), 100));
+      clouds.push(new Cloud(new Vector(300, 100), new Vector(30, 0), 100));
+      clouds.push(new Cloud(new Vector(500, 130), new Vector(60, 0), 100));
 
-      // Erstellen der Bienen
-      moveables.push(new Bee(crc2, new Vector(Math.random() * crc2.canvas.width, Math.random() * crc2.canvas.height), 15, new Vector(200, 0)));
-      moveables.push(new Bee(crc2, new Vector(Math.random() * crc2.canvas.width, Math.random() * crc2.canvas.height), 15, new Vector(70, 0)));
-      moveables.push(new Bee(crc2, new Vector(Math.random() * crc2.canvas.width, Math.random() * crc2.canvas.height), 15, new Vector(160, 0)));
+      bees.push(new Bee(crc2, new Vector(Math.random() * crc2.canvas.width, Math.random() * crc2.canvas.height), 15, new Vector(200, 0)));
+      bees.push(new Bee(crc2, new Vector(Math.random() * crc2.canvas.width, Math.random() * crc2.canvas.height), 15, new Vector(70, 0)));
+      bees.push(new Bee(crc2, new Vector(Math.random() * crc2.canvas.width, Math.random() * crc2.canvas.height), 15, new Vector(160, 0)));
 
       // Erstellen der Enten
       for (let i = 0; i < 5; i++) {
-          moveables.push(createDuck());
+          ducks.push(createDuck());
       }
 
       setInterval(() => animate(), 40);
@@ -108,7 +108,7 @@ namespace L09_EntenteichClasses {
           x = pondX + Math.random() * 700;
           y = pondY + Math.random() * 80;
       } else if (r > 0.8) {
-          state = "dive";
+                    state = "dive";
           x = pondX + Math.random() * 700;
           y = pondY + Math.random() * 100;
       }
@@ -120,13 +120,23 @@ namespace L09_EntenteichClasses {
   }
 
   function animate(): void {
-      // Zurücksetzen des gespeicherten Bild der statischen Teile 
+      // Setze das gespeicherte Bild der statischen Teile zurück
       crc2.putImageData(staticImageData, 0, 0);
 
-      // Bewegen + zeichnen der Moveables (Enten, Wolken, Bienen)
-      moveables.forEach(moveable => {
-          moveable.move(40 / 1000);
-          moveable.draw();
+      // Bewege und zeichne die Wolken
+      clouds.forEach(cloud => {
+          cloud.move(40 / 1000);
+          cloud.draw();
       });
+
+      // Bewege und zeichne die Bienen
+      bees.forEach(bee => {
+          bee.move(40 / 1000);
+          bee.draw();
+      });
+
+      // Zeichne die Enten
+      ducks.forEach(duck => duck.draw());
   }
 }
+

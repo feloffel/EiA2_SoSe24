@@ -52,9 +52,6 @@ namespace L09_EntenteichClasses {
             crc2.arc(this.position.x + 25, this.position.y - 15, 2, 0, Math.PI * 2);
             crc2.closePath();
             crc2.fill();
-
-            this.move();
-            this.updatePosition();
         }
 
         drawTail(): void {
@@ -63,9 +60,6 @@ namespace L09_EntenteichClasses {
             crc2.arc(this.position.x, this.position.y, 20, Math.PI, 2 * Math.PI); // Halber Kreis
             crc2.closePath();
             crc2.fill();
-
-            this.move();
-            this.updatePosition();
         }
 
         drawStanding(): void {
@@ -97,63 +91,42 @@ namespace L09_EntenteichClasses {
             crc2.fillStyle = "orange";
             crc2.fillRect(this.position.x - 10, this.position.y + 10, 5, 20);
             crc2.fillRect(this.position.x + 5, this.position.y + 10, 5, 20);
-
-            this.move();
-            this.updatePosition();
         }
 
-        move(): void {
-    // Horizontalen und vertikalen Versatz initialisieren
-    let offsetX: number = 2; // Geschwindigkeit der Enten
-    
-    // Definiere die Breite und Höhe des Bereichs, in dem sich die Enten bewegen sollen
-    let movementAreaWidth: number = 600; // Breite des Bewegungsbereichs
-    let movementAreaHeight: number = 180; // Höhe des Bewegungsbereichs
+        move(_timeslice: number): void {
+            let offsetX: number = 2;
+            let movementAreaWidth: number = 600;
+            let movementAreaHeight: number = 180;
 
-    // Wenn die Ente sich im Schwimmzustand befindet
-    if (this.state === "swim") {
-        // Wenn die Ente zum Tauchzustand wechseln soll
-        if (Math.random() <= 0.001) {
-            this.state = "dive";
+            if (this.state === "swim") {
+                if (Math.random() <= 0.001) {
+                    this.state = "dive";
+                }
+            } else if (this.state === "dive") {
+                this.underWater++;
+                if (this.underWater >= 50 && Math.random() >= 0.001) {
+                    this.state = "swim";
+                    this.underWater = -1;
+                }
+            }
+
+            if (this.position.x <= this.pondArea.x) {
+                this.mirror = false;
+            } else if (this.position.x >= this.pondArea.x + movementAreaWidth - 100) {
+                this.mirror = true;
+            }
+
+            if (this.mirror === true) {
+                this.position.x -= offsetX;
+            } else {
+                this.position.x += offsetX;
+            }
+
+            if (this.position.y <= this.pondArea.y) {
+                this.position.y = this.pondArea.y;
+            } else if (this.position.y >= this.pondArea.y + movementAreaHeight) {
+                this.position.y = this.pondArea.y + movementAreaHeight;
+            }
         }
     }
-    // Wenn die Ente sich im Tauchzustand befindet
-    else if (this.state === "dive") {
-        // Zähler für die Unterwasserzeit erhöhen
-        this.underWater++;
-        // Wenn die Ente genug Zeit unter Wasser verbracht hat
-        if (this.underWater >= 50 && Math.random() >= 0.001) {
-            this.state = "swim";
-            this.underWater = -1; // Zähler zurücksetzen
-        }
-    }
-
-     // Wenn die Ente den linken Rand des Bewegungsbereichs erreicht hat
-     if (this.position.x <= this.pondArea.x) {
-         this.mirror = false; // Richtung umkehren
-    }
-     // Wenn die Ente den rechten Rand des Bewegungsbereichs erreicht hat
-     else if (this.position.x >= this.pondArea.x + movementAreaWidth - 100) {
-         this.mirror = true; // Richtung umkehren
-     }
-
-     // Abhängig von der Richtung bewegen
-     if (this.mirror === true) {
-     // Ente nach links bewegen
-         this.position.x -= offsetX;
-     } else {
-         // Ente nach rechts bewegen
-         this.position.x += offsetX;
-     }
-
-    // Vertikale Bewegung im Bewegungsbereich einschränken
-    if (this.position.y <= this.pondArea.y) {
-        this.position.y = this.pondArea.y;
-    } else if (this.position.y >= this.pondArea.y + movementAreaHeight) {
-        this.position.y = this.pondArea.y + movementAreaHeight;
-    }
-}
-
-    }
-
 }

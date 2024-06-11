@@ -20,5 +20,3 @@ namespace L09_EntenteichClasses {
         }
     }
 }
-
-
