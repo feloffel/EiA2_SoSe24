@@ -6,6 +6,7 @@ var L09_EntenteichClasses;
         state;
         mirror;
         underWater;
+        quackSound;
         constructor(initialPosition, pondArea, _state, _mirror) {
             super(initialPosition);
             this.velocity = new L09_EntenteichClasses.Vector((Math.random() - 0.5) * 2, (Math.random() - 0.5) * 2);
@@ -13,6 +14,25 @@ var L09_EntenteichClasses;
             this.state = _state;
             this.mirror = _mirror;
             this.underWater = -1;
+            this.quackSound = new Audio('sounds/quack.mp3'); //Erstellung HTML Audio-Element
+            this.addClickListener();
+        }
+        addClickListener() {
+            L09_EntenteichClasses.crc2.canvas.addEventListener("click", this.handleClick.bind(this)); //sorgt dafür, dass der Kontext (this) in der handleClick Methode korrekt bleibt. Sonst wäre Ente nicht der Kontext für Click
+        }
+        handleClick(event) {
+            let rect = L09_EntenteichClasses.crc2.canvas.getBoundingClientRect(); //Methode getBoundingClientRect auf dem Canvas, um die Position und Größe der Ente relativ zum Ansichtsfenster zu erhalten
+            let x = event.clientX - rect.left; //Berechnet die x-Koordinate des Klicks relativ zum Canvas, indem die linke Position des Canvas von der x-Koordinate des Klicks abgezogen wird.
+            let y = event.clientY - rect.top; //Berechnet die y-Koordinate des Klicks relativ zum Canvas, indem die obere Position des Canvas von der y-Koordinate des Klicks abgezogen wird.
+            if (this.isClicked(x, y)) { //Überprüft, ob der Klick innerhalb der Ente war, indem die Methode isClicked aufgerufen wird.
+                this.quackSound.play();
+            }
+        }
+        isClicked(x, y) {
+            let dx = x - this.position.x; //Berechnet die Differenz in der x-Koordinate zwischen der Klickposition und der Position der Ente.
+            let dy = y - this.position.y; //Berechnet die Differenz in der y-Koordinate zwischen der Klickposition und der Position der Ente.
+            let distance = Math.sqrt(dx * dx + dy * dy); //Berechnet die Entfernung zwischen der Klickposition und der Position der Ente.
+            return distance <= 30; // Überprüft, ob diese Entfernung kleiner oder gleich 30 ist (ungefährer Radius der Ente)
         }
         draw() {
             switch (this.state) {
@@ -48,8 +68,6 @@ var L09_EntenteichClasses;
             L09_EntenteichClasses.crc2.arc(this.position.x + 25, this.position.y - 15, 2, 0, Math.PI * 2);
             L09_EntenteichClasses.crc2.closePath();
             L09_EntenteichClasses.crc2.fill();
-            this.move();
-            this.updatePosition();
         }
         drawTail() {
             L09_EntenteichClasses.crc2.fillStyle = "yellow";
@@ -57,8 +75,6 @@ var L09_EntenteichClasses;
             L09_EntenteichClasses.crc2.arc(this.position.x, this.position.y, 20, Math.PI, 2 * Math.PI); // Halber Kreis
             L09_EntenteichClasses.crc2.closePath();
             L09_EntenteichClasses.crc2.fill();
-            this.move();
-            this.updatePosition();
         }
         drawStanding() {
             L09_EntenteichClasses.crc2.fillStyle = "yellow";
@@ -85,50 +101,35 @@ var L09_EntenteichClasses;
             L09_EntenteichClasses.crc2.fillStyle = "orange";
             L09_EntenteichClasses.crc2.fillRect(this.position.x - 10, this.position.y + 10, 5, 20);
             L09_EntenteichClasses.crc2.fillRect(this.position.x + 5, this.position.y + 10, 5, 20);
-            this.move();
-            this.updatePosition();
         }
-        move() {
-            // Horizontalen und vertikalen Versatz initialisieren
-            let offsetX = 2; // Geschwindigkeit der Enten
-            // Definiere die Breite und Höhe des Bereichs, in dem sich die Enten bewegen sollen
-            let movementAreaWidth = 600; // Breite des Bewegungsbereichs
-            let movementAreaHeight = 180; // Höhe des Bewegungsbereichs
-            // Wenn die Ente sich im Schwimmzustand befindet
+        move(_timeslice) {
+            let offsetX = 2;
+            let movementAreaWidth = 600;
+            let movementAreaHeight = 180;
             if (this.state === "swim") {
-                // Wenn die Ente zum Tauchzustand wechseln soll
                 if (Math.random() <= 0.001) {
                     this.state = "dive";
                 }
             }
-            // Wenn die Ente sich im Tauchzustand befindet
             else if (this.state === "dive") {
-                // Zähler für die Unterwasserzeit erhöhen
                 this.underWater++;
-                // Wenn die Ente genug Zeit unter Wasser verbracht hat
                 if (this.underWater >= 50 && Math.random() >= 0.001) {
                     this.state = "swim";
-                    this.underWater = -1; // Zähler zurücksetzen
+                    this.underWater = -1;
                 }
             }
-            // Wenn die Ente den linken Rand des Bewegungsbereichs erreicht hat
             if (this.position.x <= this.pondArea.x) {
-                this.mirror = false; // Richtung umkehren
+                this.mirror = false;
             }
-            // Wenn die Ente den rechten Rand des Bewegungsbereichs erreicht hat
             else if (this.position.x >= this.pondArea.x + movementAreaWidth - 100) {
-                this.mirror = true; // Richtung umkehren
+                this.mirror = true;
             }
-            // Abhängig von der Richtung bewegen
             if (this.mirror === true) {
-                // Ente nach links bewegen
                 this.position.x -= offsetX;
             }
             else {
-                // Ente nach rechts bewegen
                 this.position.x += offsetX;
             }
-            // Vertikale Bewegung im Bewegungsbereich einschränken
             if (this.position.y <= this.pondArea.y) {
                 this.position.y = this.pondArea.y;
             }

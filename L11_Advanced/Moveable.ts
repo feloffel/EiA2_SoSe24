@@ -5,7 +5,7 @@ namespace L09_EntenteichClasses {
 
         constructor(_position: Vector) {
             this.position = _position;
-            this.velocity = new Vector(0, 0); // Geschwindigkeit mit Standardwert initialisieren
+            this.velocity = new Vector(0, 0); //Geschwindigkeit mit Standardwert initialisieren
         }
 
         move(_timeslice: number): void {
@@ -18,5 +18,10 @@ namespace L09_EntenteichClasses {
         public updatePosition(): void {
             this.position.add(this.velocity);
         }
+
+        draw(): void {
+            //Methode wird von den abgeleiteten Klassen überschrieben
+        }
     }
 }
+

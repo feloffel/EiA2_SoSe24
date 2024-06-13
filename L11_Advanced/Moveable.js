@@ -6,7 +6,7 @@ var L09_EntenteichClasses;
         velocity;
         constructor(_position) {
             this.position = _position;
-            this.velocity = new L09_EntenteichClasses.Vector(0, 0); // Geschwindigkeit mit Standardwert initialisieren
+            this.velocity = new L09_EntenteichClasses.Vector(0, 0); //Geschwindigkeit mit Standardwert initialisieren
         }
         move(_timeslice) {
             let offset = this.velocity.copy();
@@ -16,6 +16,9 @@ var L09_EntenteichClasses;
         }
         updatePosition() {
             this.position.add(this.velocity);
+        }
+        draw() {
+            //Methode wird von den abgeleiteten Klassen überschrieben
         }
     }
     L09_EntenteichClasses.Moveable = Moveable;
