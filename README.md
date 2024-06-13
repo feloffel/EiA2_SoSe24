@@ -5,4 +5,5 @@ L04_Einkaufsliste: <link>https://feloffel.github.io/EiA2_SoSe24/L04_Einkaufslist
 L08.1_Generative Kunst: <link>https://feloffel.github.io/EiA2_SoSe24/L08.1_GenerativeKunst</link> <br>
 L09_EntenteichClasses: <link>https://feloffel.github.io/EiA2_SoSe24/L09_EntenteichClasses</link> <br>
 L10_inheritance: https://feloffel.github.io/EiA2_SoSe24/L10_Inheritance <br>
-L10_inheritance: https://feloffel.github.io/EiA2_SoSe24/L10_Inheritance_Polymorph
+L10_inheritance: https://feloffel.github.io/EiA2_SoSe24/L10_Inheritance_Polymorph <br>
+L11_Advanced: https://feloffel.github.io/EiA2_SoSe24/L12_Advanced
