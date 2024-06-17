@@ -4,6 +4,7 @@ namespace L09_EntenteichClasses {
   let line: number = 0.46;
   let moveables: Moveable[] = []; // Liste für alle Moveables (Enten, Wolken, Bienen)
   let staticImageData: ImageData;
+  let addDuckButton: HTMLButtonElement;
 
   function handleLoad(_event: Event): void {
       let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
@@ -14,6 +15,11 @@ namespace L09_EntenteichClasses {
       canvas.width = 1440;
       canvas.height = 780;
 
+
+    //Funktion Button zum hinzufügen einer neuen Ente
+    addDuckButton = document.getElementById("addDuckButton") as HTMLButtonElement;
+    addDuckButton.addEventListener("click", addDuck);
+      
       let horizon: number = crc2.canvas.height * line;
 
       // Zeichne statische Teile
@@ -92,6 +98,12 @@ namespace L09_EntenteichClasses {
       }
 
       setInterval(() => animate(), 40);
+  }
+
+
+  //Funktion für Button zum hinzufügen neuer Enten
+function addDuck(): void {
+    moveables.push(createDuck());
   }
 
   function createDuck(): Duck {

@@ -5,6 +5,7 @@ var L09_EntenteichClasses;
     let line = 0.46;
     let moveables = []; // Liste für alle Moveables (Enten, Wolken, Bienen)
     let staticImageData;
+    let addDuckButton;
     function handleLoad(_event) {
         let canvas = document.querySelector("canvas");
         if (!canvas)
@@ -13,6 +14,9 @@ var L09_EntenteichClasses;
         L09_EntenteichClasses.crc2.fillRect(0, 0, L09_EntenteichClasses.crc2.canvas.width, L09_EntenteichClasses.crc2.canvas.height);
         canvas.width = 1440;
         canvas.height = 780;
+        //Funktion Button zum hinzufügen einer neuen Ente
+        addDuckButton = document.getElementById("addDuckButton");
+        addDuckButton.addEventListener("click", addDuck);
         let horizon = L09_EntenteichClasses.crc2.canvas.height * line;
         // Zeichne statische Teile
         L09_EntenteichClasses.Static.drawBackground(horizon);
@@ -85,6 +89,10 @@ var L09_EntenteichClasses;
             moveables.push(createDuck());
         }
         setInterval(() => animate(), 40);
+    }
+    //Funktion für Button zum hinzufügen neuer Enten
+    function addDuck() {
+        moveables.push(createDuck());
     }
     function createDuck() {
         let r = Math.random();

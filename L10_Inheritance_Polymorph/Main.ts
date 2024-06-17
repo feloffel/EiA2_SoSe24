@@ -5,11 +5,16 @@ namespace L09_EntenteichClasses {
   let moveables: Moveable[] = []; // Liste für alle Moveables (Enten, Wolken, Bienen)
   let staticImageData: ImageData;
 
+
   function handleLoad(_event: Event): void {
       let canvas: HTMLCanvasElement | null = document.querySelector("canvas");
       if (!canvas) return;
       crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
       crc2.fillRect(0, 0, crc2.canvas.width, crc2.canvas.height);
+
+    
+      
+
 
       canvas.width = 1440;
       canvas.height = 780;
@@ -93,6 +98,10 @@ namespace L09_EntenteichClasses {
 
       setInterval(() => animate(), 40);
   }
+
+
+
+
 
   function createDuck(): Duck {
       let r: number = Math.random();
