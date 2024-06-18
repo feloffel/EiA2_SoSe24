@@ -1,3 +1,11 @@
+/*
+Aufgabe: L10_Inheritance_Polymorph
+Name: Marius Dauner
+Matrikel: 275813
+Datum: 16.06.24
+Quellen: -
+*/
+
 namespace L09_EntenteichClasses {
   window.addEventListener("load", handleLoad);
   export let crc2: CanvasRenderingContext2D;

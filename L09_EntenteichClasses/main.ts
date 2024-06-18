@@ -3,7 +3,7 @@ Aufgabe: L09_EntenteichClasses
 Name: Marius Dauner
 Matrikel: 275813
 Datum: 11.05.24
-Quellen: mithilfe von ChatGPT erarbeitet da ich sonst verzweifelt wäre
+Quellen: -
 */
 
 namespace L09_EntenteichClasses {

@@ -1,3 +1,12 @@
+/*
+Aufgabe: L11_Advanced
+Name: Marius Dauner
+Matrikel: 275813
+Datum: 13.06.24
+Quellen: -
+*/
+
+
 namespace L09_EntenteichClasses {
   window.addEventListener("load", handleLoad);
   export let crc2: CanvasRenderingContext2D;
